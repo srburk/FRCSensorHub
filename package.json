@@ -1,0 +1,23 @@
+{
+  "name": "frcsensorhub",
+  "version": "1.0.0",
+  "description": "a Raspberry Pi sensor hub made for FRC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/srburk/FRCSensorHub.git"
+  },
+  "author": "Sam Burkhard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/srburk/FRCSensorHub/issues"
+  },
+  "homepage": "https://github.com/srburk/FRCSensorHub#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.2.1"
+  }
+}
