@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Websocket Client</title>
+    
+    <!-- client code -->
+    <script type="text/javascript">
+      let HOST = 'ws://' + location.hostname + ":8080"
+      let ws = new WebSocket(HOST);
+      let el;
+
+      ws.onmessage = function(event) {
+        // $(p#server-time).text('Server Time: ' + event.data);
+        el = document.getElementById('server-time');
+        el.innerHTML = 'Server Time: ' + event.data;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Websocket Client</h1>
+    <p id="server-time"></p>
+  </body>
+</html>
