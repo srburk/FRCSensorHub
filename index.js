@@ -4,7 +4,9 @@ var WebSocket = require('ws').Server;
 var app = express();
 
 // initialize Websocket server
-ws = new WebSocket({ port: 8080 });
+ws = new WebSocket({
+  port: 8080
+});
 
 // websocket connection event handler
 ws.on('connection', (socket, req) => {
@@ -23,7 +25,24 @@ ws.on('connection', (socket, req) => {
 // websocket broadcaster
 setInterval(() => {
   ws.clients.forEach((client) => {
-    client.send(new Date().toTimeString());
+    // client.send(new Date().toTimeString());
+    // make msg object with information for packet
+    var time = new Date().toTimeString();
+    var message = {
+      sensor1: {
+        number: time,
+        type: time,
+        id: time,
+        reading: time
+      },
+      sensor2: {
+        number: time,
+        type: time,
+        id: time,
+        reading: time
+      }
+    }
+    client.send(JSON.stringify(message));
   });
 }, 1000);
 
