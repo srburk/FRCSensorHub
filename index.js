@@ -27,10 +27,8 @@ setInterval(() => {
   });
 }, 1000);
 
-// routing setup
-app.get('/', (req, res) => {
-    res.sendFile('./client/index.html', { root: __dirname });
-});
+// route to client app on GET at root
+app.use('/', express.static('client'));
 
 // listen on port 3000
 app.listen(process.env.PORT || 3000, () => {
