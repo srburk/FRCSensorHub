@@ -20,24 +20,22 @@
 
     <!-- websocket code -->
     <script type="text/javascript">
+
       // Check if the browser supports websockets
       $(document).ready(() => {
         if(!("WebSocket" in window)) {
           $('<p>Sorry, you need a browser that supports WebSockets.');
+        } else {
+          // Establish WebSocket connection
+          let HOST = 'ws://' + location.hostname + ":8080"
+          let ws = new WebSocket(HOST);
+
+          ws.onmessage = function(event) {
+            console.log(event.data);
+            $('p#server-time').html('Server Time: ' + event.data);
+          }
         }
       });
-      let HOST = 'ws://' + location.hostname + ":8080"
-      let ws = new WebSocket(HOST);
-      let el;
-
-      ws.onmessage = function(event) {
-        // $(p#server-time).text('Server Time: ' + event.data);
-        // el = document.getElementById('server-time');
-        // el.innerHTML = 'Server Time: ' + event.data;
-        console.log(event.data);
-        $('p#server-time').html('Server Time: ' + event.data);
-        // el.html = 'Server Time: ' + event.data;
-      }
     </script>
 
     <script type="text/javascript">
