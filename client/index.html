@@ -2,23 +2,44 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Websocket Client</title>
-    
-    <!-- client code -->
-    <script type="text/javascript">
-      let HOST = 'ws://' + location.hostname + ":8080"
-      let ws = new WebSocket(HOST);
-      let el;
 
-      ws.onmessage = function(event) {
-        // $(p#server-time).text('Server Time: ' + event.data);
-        el = document.getElementById('server-time');
-        el.innerHTML = 'Server Time: ' + event.data;
-      }
-    </script>
+    <link rel="stylesheet" href="./css/foundation.css" />
+
   </head>
   <body>
     <h1>Websocket Client</h1>
     <p id="server-time"></p>
+
+    <!-- import javascript libraries -->
+    <script type="text/javascript" src="/js/vendor/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/js/vendor/what-input.js"></script>
+    <script type="text/javascript" src="/js/vendor/foundation.min.js"></script>
+
+    <!-- websocket code -->
+    <script type="text/javascript">
+
+      // Check if the browser supports websockets
+      $(document).ready(() => {
+        if(!("WebSocket" in window)) {
+          $('<p>Sorry, you need a browser that supports WebSockets.');
+        } else {
+          // Establish WebSocket connection
+          let HOST = 'ws://' + location.hostname + ":8080"
+          let ws = new WebSocket(HOST);
+
+          ws.onmessage = function(event) {
+            console.log(event.data);
+            $('p#server-time').html('Server Time: ' + event.data);
+          }
+        }
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(document).foundation();
+    </script>
   </body>
 </html>
