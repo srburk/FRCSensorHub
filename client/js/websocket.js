@@ -9,18 +9,26 @@ $(document).ready(() => {
 
     ws.onmessage = function(event) {
       // $('h2#server-time').html('Server Time: ' + event.data);
-      var obj = JSON.parse(event.data);
-      console.log(obj);
+      var jsonGarbage = JSON.parse(event.data);
+      console.log(jsonGarbage);
 
-      $('#sensor-1-num').html(obj.sensor1.number);
-      $('#sensor-1-type').html(obj.sensor1.type);
-      $('#sensor-1-id').html(obj.sensor1.id);
-      $('#sensor-1-reading').html(obj.sensor1.reading);
-
-      $('#sensor-2-num').html(obj.sensor2.number);
-      $('#sensor-2-type').html(obj.sensor2.type);
-      $('#sensor-2-id').html(obj.sensor2.id);
-      $('#sensor-2-reading').html(obj.sensor2.reading);
+      $.each(jsonGarbage, function(i, obj) {
+        console.log(obj.sensor);
+        if (!($('#' + obj.sensor).length)) {
+          $('#table-body').append('<tr id=' +
+            obj.sensor + '><th scope=row id=number_' + i + '>' +
+            obj.number + '</th><td id=type_' + i + '>' +
+            obj.type +'</td><td id=id_' + i + '>' +
+            obj.id + '</td><td id=reading_' + i + '>' +
+            obj.reading + '</td></tr>'
+          );
+        } else {
+          $('#number_' + i).html(obj.number);
+          $('#type_' + i).html(obj.type);
+          $('#id_' + i).html(obj.id);
+          $('#reading_' + i).html(obj.reading);
+        };
+      });
     }
   }
 });
