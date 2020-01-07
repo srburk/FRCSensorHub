@@ -14,7 +14,6 @@ ws.on('connection', (socket, req) => {
   const ip = req.connection.remoteAddress;
 
   // status handler
-  socket.send('Connected to server via WebSocket');
   console.log('Client connected:' + ip);
 
   socket.on('close', () => {
@@ -30,12 +29,21 @@ setInterval(() => {
     var time = new Date().toTimeString();
     var message = {
       sensor1: {
+        sensor: 'Light',
         number: time,
-        type: time,
+        type: 5,
         id: time,
         reading: time
       },
       sensor2: {
+        sensor: 'Laser',
+        number: time,
+        type: time,
+        id: 0,
+        reading: time
+      },
+      sensor3: {
+        sensor: 'Lane',
         number: time,
         type: time,
         id: time,
