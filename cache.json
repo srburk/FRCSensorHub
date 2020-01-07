@@ -1,0 +1,23 @@
+{
+  "sensor1": {
+    "sensor": "Light",
+    "number": "14:32:06 GMT-0500 (Eastern Standard Time)",
+    "type": 5,
+    "id": "14:32:06 GMT-0500 (Eastern Standard Time)",
+    "reading": "14:32:06 GMT-0500 (Eastern Standard Time)"
+  },
+  "sensor2": {
+    "sensor": "Laser",
+    "number": "14:32:06 GMT-0500 (Eastern Standard Time)",
+    "type": "14:32:06 GMT-0500 (Eastern Standard Time)",
+    "id": 0,
+    "reading": "14:32:06 GMT-0500 (Eastern Standard Time)"
+  },
+  "sensor3": {
+    "sensor": "Lane",
+    "number": "14:32:06 GMT-0500 (Eastern Standard Time)",
+    "type": "14:32:06 GMT-0500 (Eastern Standard Time)",
+    "id": "14:32:06 GMT-0500 (Eastern Standard Time)",
+    "reading": "14:32:06 GMT-0500 (Eastern Standard Time)"
+  }
+}
