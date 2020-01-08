@@ -1,22 +1,22 @@
 var express = require('express');
 var WebSocket = require('ws').Server;
-var cacher = require('./cache-manager');
 
 var app = express();
+
+var cacher = require('./libs/cacher');
 
 // initialize Websocket server
 ws = new WebSocket({
   port: 8080
 });
 
+cacher.init();
 
 // websocket connection event handler
 ws.on('connection', (socket, req) => {
-  // client information
-  const ip = req.connection.remoteAddress;
 
   // status handler
-  console.log('Client connected:' + ip);
+  console.log('Client Connected');
 
   socket.on('close', () => {
     console.log('Client disconnected');
@@ -24,7 +24,10 @@ ws.on('connection', (socket, req) => {
 });
 
 setInterval(() => {
+  // stand-in updating value for sensor representation
   var time = new Date().toTimeString();
+
+  // stand-in sensor data to be cached
   var message = {
     sensor1: {
       sensor: 'Light',
@@ -49,27 +52,14 @@ setInterval(() => {
     }
   }
 
-  // fs.writeFile('cache.json', JSON.stringify( message ), 'utf8', (err) => {
-  //   if (err) throw err;
+  // write cache
+  cacher.write(message);
 
-    cacher.write(message);
-    ws.clients.forEach((client) => {
-      console.log(JSON.stringify(cacher.read()));
-      client.send(JSON.stringify(cacher.read()));
-    });
+  // websocket broadcasting
+  ws.clients.forEach((client) => {
+    client.send(JSON.stringify(cacher.read()));
+  });
 }, 1000);
-
-
-// websocket broadcaster
-// setInterval(() => {
-//   ws.clients.forEach((client) => {
-//     // client.send(new Date().toTimeString());
-//     // make msg object with information for packet
-//     var time = new Date().toTimeString();
-//     // Stand - in
-    // client.send(JSON.stringify(message));
-//   });
-// }, 1000);
 
 // route to client app on GET at root
 app.use('/', express.static('client'));
