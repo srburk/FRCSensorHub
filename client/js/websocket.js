@@ -9,8 +9,9 @@ $(document).ready(() => {
 
     ws.onmessage = function(event) {
       // $('h2#server-time').html('Server Time: ' + event.data);
-      // var jsonGarbage = JSON.parse(event.data);
-      var jsonGarbage = event.data;
+      console.log(event.data);
+      var jsonGarbage = JSON.parse(event.data);
+    //  jsonGarbage = JSON.parse(jsonGarbage);
       console.log(jsonGarbage);
 
       $.each(jsonGarbage, function(i, obj) {

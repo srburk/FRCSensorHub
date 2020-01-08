@@ -54,7 +54,8 @@ setInterval(() => {
 
     cacher.write(message);
     ws.clients.forEach((client) => {
-      client.send(cacher.read());
+      console.log(JSON.stringify(cacher.read()));
+      client.send(JSON.stringify(cacher.read()));
     });
 }, 1000);
 
@@ -66,7 +67,7 @@ setInterval(() => {
 //     // make msg object with information for packet
 //     var time = new Date().toTimeString();
 //     // Stand - in
-//     client.send(JSON.stringify(message));
+    // client.send(JSON.stringify(message));
 //   });
 // }, 1000);
 
