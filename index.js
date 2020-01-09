@@ -3,11 +3,22 @@ var WebSocket = require('ws').Server;
 
 var app = express();
 
+// config
+const serialPath = '/dev/ttyAMA0'
+const baud = 9600;
+const socketPort = 8080;
+
+// our libraries
 var cacher = require('./libs/cacher');
+var uart = require('./libs/rs232');
+
+// serial port setup
+var SerialPort = require('serialport');
+var port = new SerialPort(serialPath, { baudRate: baud });
 
 // initialize Websocket server
 ws = new WebSocket({
-  port: 8080
+  port: socketPort
 });
 
 cacher.init();
@@ -51,6 +62,9 @@ setInterval(() => {
       reading: time
     }
   }
+
+  // RS232 code
+  uart.send( port, 'Drew Friend is a nasty fellow');
 
   // write cache
   cacher.write(message);
