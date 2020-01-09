@@ -1,13 +1,6 @@
-var raspi = require('raspi');
-var Serial = require('raspi-serial').Serial;
+var SerialPort = require('serialport');
+var port = new SerialPort(path, { baudRate: 256000 });
 
-raspi.init(() => {
-        var serial = new Serial();
-        serial.open(() => {
-                serial.on('data', (data) => {
-                        process.stdout.write(data);
-                });
-                console.log('Seems to be working');
-                serial.write('Hello from Raspberry Pi');
-        });
-});
+setInterval(() => {
+  port.write('F*** apple');
+}, 1000);
