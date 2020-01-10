@@ -2,5 +2,5 @@
   "port": 3000,
   "serial_path": "/dev/ttyAMA0",
   "baud_rate": 9600,
-  "websocket_port": 8080,
+  "websocket_port": 8080
 }

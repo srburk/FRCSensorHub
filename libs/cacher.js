@@ -11,7 +11,6 @@ function read() {
 }
 
 module.exports = {
-  init,
   read,
   write
 }
