@@ -11,10 +11,11 @@ const socketPort = 8080;
 // our libraries
 var cacher = require('./libs/cacher');
 var uart = require('./libs/rs232');
+var jsonHandler = require('./libs/json-handler');
 
 // serial port setup
 var SerialPort = require('serialport');
-var port = new SerialPort(serialPath, { baudRate: baud });
+// var port = new SerialPort(serialPath, { baudRate: baud });
 
 // initialize Websocket server
 ws = new WebSocket({
@@ -43,28 +44,28 @@ setInterval(() => {
     sensor1: {
       sensor: 'Light',
       number: time,
-      type: 5,
+      type: time,
       id: time,
-      reading: time
+      reading: 4
     },
     sensor2: {
       sensor: 'Laser',
       number: time,
       type: time,
-      id: 0,
-      reading: time
+      id: time,
+      reading: 6
     },
     sensor3: {
       sensor: 'Lane',
       number: time,
       type: time,
       id: time,
-      reading: time
+      reading: 6
     }
   }
 
   // RS232 code
-  uart.send( port, 'Drew Friend is a nasty fellow');
+  // uart.send( port, 'Drew Friend is a nasty fellow');
 
   // write cache
   cacher.write(message);
@@ -73,6 +74,9 @@ setInterval(() => {
   ws.clients.forEach((client) => {
     client.send(JSON.stringify(cacher.read()));
   });
+
+  console.log(jsonHandler.buildMessage(cacher.read()));
+
 }, 1000);
 
 // route to client app on GET at root
