@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 // config
-var config = require('/config.json');
+var config = require('./config.json');
 
 // imports
 var SerialPort = require('serialport');
