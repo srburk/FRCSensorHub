@@ -3,11 +3,23 @@ var WebSocket = require('ws').Server;
 
 var app = express();
 
+// config
+const serialPath = '/dev/ttyAMA0'
+const baud = 9600;
+const socketPort = 8080;
+
+// our libraries
 var cacher = require('./libs/cacher');
+var uart = require('./libs/rs232');
+var jsonHandler = require('./libs/json-handler');
+
+// serial port setup
+var SerialPort = require('serialport');
+var port = new SerialPort(serialPath, { baudRate: baud });
 
 // initialize Websocket server
 ws = new WebSocket({
-  port: 8080
+  port: socketPort
 });
 
 cacher.init();
@@ -32,33 +44,37 @@ setInterval(() => {
     sensor1: {
       sensor: 'Light',
       number: time,
-      type: 5,
+      type: time,
       id: time,
-      reading: time
+      reading: 4
     },
     sensor2: {
       sensor: 'Laser',
       number: time,
       type: time,
-      id: 0,
-      reading: time
+      id: time,
+      reading: 6
     },
     sensor3: {
       sensor: 'Lane',
       number: time,
       type: time,
       id: time,
-      reading: time
+      reading: 6.66
     }
   }
 
   // write cache
   cacher.write(message);
 
+  // RS232 code
+  uart.send( port, jsonHandler.buildMessage(cacher.read()));
+
   // websocket broadcasting
   ws.clients.forEach((client) => {
     client.send(JSON.stringify(cacher.read()));
   });
+
 }, 1000);
 
 // route to client app on GET at root
