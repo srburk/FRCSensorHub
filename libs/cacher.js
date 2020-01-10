@@ -1,10 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 
-function init() {
-  fs.writeFileSync(path.join(__dirname, '../cache.json'), '');
-}
-
 function write(data) {
   fs.writeFileSync(path.join(__dirname, '../cache.json'), JSON.stringify(data));
 }

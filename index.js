@@ -1,28 +1,25 @@
 var express = require('express');
-var WebSocket = require('ws').Server;
-
 var app = express();
 
 // config
-const serialPath = '/dev/ttyAMA0'
-const baud = 9600;
-const socketPort = 8080;
+var config = require('/config.json');
+
+// imports
+var SerialPort = require('serialport');
+var WebSocket = require('ws').Server;
 
 // our libraries
 var cacher = require('./libs/cacher');
-var uart = require('./libs/rs232');
+var serial = require('./libs/serial');
 var jsonHandler = require('./libs/json-handler');
 
-// serial port setup
-var SerialPort = require('serialport');
-var port = new SerialPort(serialPath, { baudRate: baud });
+// serial port config
+var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
-// initialize Websocket server
+// websocket config
 ws = new WebSocket({
-  port: socketPort
+  port: config.websocket_port
 });
-
-cacher.init();
 
 // websocket connection event handler
 ws.on('connection', (socket, req) => {
@@ -68,7 +65,7 @@ setInterval(() => {
   cacher.write(message);
 
   // RS232 code
-  uart.send( port, jsonHandler.buildMessage(cacher.read()));
+  serial.send( port, jsonHandler.buildMessage(cacher.read()));
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
@@ -81,6 +78,6 @@ setInterval(() => {
 app.use('/', express.static('client'));
 
 // listen on port 3000
-app.listen(process.env.PORT || 3000, () => {
-  console.log('FRCSensorHub listening on port 3000');
+app.listen(process.env.PORT || config.port, () => {
+  console.log('Server listening on port ' + config.port);
 });
