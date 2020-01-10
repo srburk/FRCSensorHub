@@ -15,7 +15,7 @@ var jsonHandler = require('./libs/json-handler');
 
 // serial port setup
 var SerialPort = require('serialport');
-// var port = new SerialPort(serialPath, { baudRate: baud });
+var port = new SerialPort(serialPath, { baudRate: baud });
 
 // initialize Websocket server
 ws = new WebSocket({
@@ -60,22 +60,20 @@ setInterval(() => {
       number: time,
       type: time,
       id: time,
-      reading: 6
+      reading: 6.66
     }
   }
 
-  // RS232 code
-  // uart.send( port, 'Drew Friend is a nasty fellow');
-
   // write cache
   cacher.write(message);
+
+  // RS232 code
+  uart.send( port, jsonHandler.buildMessage(cacher.read()));
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
     client.send(JSON.stringify(cacher.read()));
   });
-
-  console.log(jsonHandler.buildMessage(cacher.read()));
 
 }, 1000);
 
