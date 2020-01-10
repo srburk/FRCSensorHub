@@ -1,8 +1,4 @@
-function send( serial, data ) {
+exports.send( serial, data ) {
   serial.write(data);
   console.log('Sending Data');
-}
-
-module.exports = {
-  send
 }
