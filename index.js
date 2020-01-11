@@ -1,25 +1,32 @@
+// index.js
+
+// express
 var express = require('express');
 var app = express();
 
-// config
-var config = require('./config.json');
+// IMPORTS ===========================
 
-// imports
+// classes
 var SerialPort = require('serialport');
 var WebSocket = require('ws').Server;
 
-// our libraries
+// libs
 var cacher = require('./libs/cacher');
 var serial = require('./libs/serial');
 var jsonHandler = require('./libs/json-handler');
+
+// CONFIG ==============================
+
+// configuration file
+var config = require('./config.json');
 
 // serial port config
 var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
 // websocket config
-ws = new WebSocket({
-  port: config.websocket_port
-});
+ws = new WebSocket({ port: config.websocket_port });
+
+// EVENTS ==============================
 
 // websocket connection event handler
 ws.on('connection', (socket, req) => {
@@ -31,6 +38,8 @@ ws.on('connection', (socket, req) => {
     console.log('Client disconnected');
   });
 });
+
+// PERIODIC ============================
 
 setInterval(() => {
   // stand-in updating value for sensor representation
@@ -74,8 +83,12 @@ setInterval(() => {
 
 }, 1000);
 
+// ROUTES ==============================
+
 // route to client app on GET at root
 app.use('/', express.static('client'));
+
+// START ===============================
 
 // listen on port 3000
 app.listen(process.env.PORT || config.port, () => {
