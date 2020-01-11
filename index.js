@@ -8,6 +8,7 @@ var app = express();
 
 // classes
 var SerialPort = require('serialport');
+var Readline = require('@serialport/parser-readline');
 var WebSocket = require('ws').Server;
 
 // libs
@@ -22,6 +23,9 @@ var config = require('./config.json');
 
 // serial port config
 var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
+
+// serial port reading config
+var serialIn = port.pipe(new Readline({ delimiter: '\r\n' }));
 
 // websocket config
 ws = new WebSocket({ port: config.websocket_port });
@@ -38,6 +42,8 @@ ws.on('connection', (socket, req) => {
     console.log('Client disconnected');
   });
 });
+
+serialIn.on('data', console.log('Recieved data!'));
 
 // PERIODIC ============================
 
