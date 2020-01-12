@@ -7,3 +7,8 @@ exports.send = ( serial, data ) => {
   serial.write(data);
   console.log('Sending Data');
 }
+
+// read from serial port
+exports.read = () => {
+  // read from serialport here
+}
