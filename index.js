@@ -8,7 +8,7 @@ var app = express();
 
 // classes
 var SerialPort = require('serialport');
-var Readline = require('@serialport/parser-readline');
+// var Readline = require('@serialport/parser-readline');
 var WebSocket = require('ws').Server;
 
 // libs
@@ -43,7 +43,7 @@ ws.on('connection', (socket, req) => {
   });
 });
 
-serialIn.on('data', console.log('Recieved data!'));
+// serialIn.on('data', console.log('Recieved data!'));
 
 // PERIODIC ============================
 
