@@ -25,7 +25,7 @@ var config = require('./config.json');
 var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
 // serial port reading config
-var serialIn = port.pipe(new Readline({ delimiter: '\r\n' }));
+// var serialIn = port.pipe(new Readline({ delimiter: '\r\n' }));
 
 // websocket config
 ws = new WebSocket({ port: config.websocket_port });
