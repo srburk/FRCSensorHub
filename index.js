@@ -43,6 +43,10 @@ ws.on('connection', (socket, req) => {
   });
 });
 
+port.on('readable', () => {
+  console.log('Data: ', port.read());
+})
+
 // serialIn.on('data', console.log('Recieved data!'));
 
 // PERIODIC ============================
