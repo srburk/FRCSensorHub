@@ -8,5 +8,5 @@ exports.buildMessage = (json) => {
   for (var obj in json) {
     message += json[obj].reading + ',';
   }
-  return message
+  return String(message)
 }
