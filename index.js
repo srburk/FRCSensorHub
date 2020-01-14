@@ -42,7 +42,7 @@ ws.on('connection', (socket, req) => {
 
 // serial input
 port.on('readable', () => {
-  console.log('Data: ', serial.read(port));
+  console.log(serial.read(port));
 })
 
 // PERIODIC ============================
