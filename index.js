@@ -8,6 +8,7 @@ var app = express();
 
 // classes
 var SerialPort = require('serialport');
+// var Readline = require('@serialport/parser-readline');
 var WebSocket = require('ws').Server;
 
 // libs
@@ -38,6 +39,11 @@ ws.on('connection', (socket, req) => {
     console.log('Client disconnected');
   });
 });
+
+// serial input
+port.on('readable', () => {
+  console.log(serial.read(port));
+})
 
 // PERIODIC ============================
 
@@ -73,7 +79,7 @@ setInterval(() => {
   // write cache
   cacher.write(message);
 
-  // RS232 code
+  // uart code
   serial.send( port, jsonHandler.buildMessage(cacher.read()));
 
   // websocket broadcasting
