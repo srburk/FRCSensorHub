@@ -84,7 +84,7 @@ setInterval(() => {
   cacher.write(message);
 
   // RS232 code
-  serial.send( port, jsonHandler.buildMessage(cacher.read()));
+  serial.send( port, Buffer.from(jsonHandler.buildMessage(cacher.read())));
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
