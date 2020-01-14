@@ -15,6 +15,6 @@ exports.send = ( serial, data ) => {
 // read from serial port
 exports.read = ( serial ) => {
   var data = serial.read()
-  console.log('Read Data: ', data);
+  console.log('Read Data: ', String(data));
   return data
 }
