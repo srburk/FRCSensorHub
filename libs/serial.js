@@ -13,6 +13,8 @@ exports.send = ( serial, data ) => {
 }
 
 // read from serial port
-exports.read = () => {
-  // read from serialport here
+exports.read = ( serial ) => {
+  var data = serial.read()
+  console.log('Read Data: ', data);
+  return data
 }

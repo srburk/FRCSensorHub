@@ -24,9 +24,6 @@ var config = require('./config.json');
 // serial port config
 var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
-// serial port reading config
-// var serialIn = port.pipe(new Readline({ delimiter: '\r\n' }));
-
 // websocket config
 ws = new WebSocket({ port: config.websocket_port });
 
@@ -43,11 +40,10 @@ ws.on('connection', (socket, req) => {
   });
 });
 
+// serial input
 port.on('readable', () => {
-  console.log('Data: ', port.read());
+  console.log('Data: ', serial.read(port));
 })
-
-// serialIn.on('data', console.log('Recieved data!'));
 
 // PERIODIC ============================
 
@@ -83,7 +79,7 @@ setInterval(() => {
   // write cache
   cacher.write(message);
 
-  // RS232 code
+  // uart code
   serial.send( port, jsonHandler.buildMessage(cacher.read()));
 
   // websocket broadcasting
