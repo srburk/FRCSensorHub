@@ -40,9 +40,19 @@ ws.on('connection', (socket, req) => {
   });
 });
 
-// serial input
+// serial input read handler
 port.on('readable', () => {
-  console.log(serial.read(port));
+  switch (serial.read(port)) {
+    case "gyroCal":
+      // Call gyro calibrate method
+      console.log('CaLiBrAtEd GyRo');
+      break;
+    case "gyroReset":
+      // Call gyro reset method
+      console.log('ReSEt gYrO');
+      break;
+    default:
+  }
 })
 
 // PERIODIC ============================
