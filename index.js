@@ -90,7 +90,9 @@ setInterval(() => {
   cacher.write(message);
 
   // uart code
-  serial.send( port, jsonHandler.buildMessage(cacher.read()));
+  // serial.send( port, jsonHandler.buildMessage(cacher.read()));
+  serial.send( port, "gyroCal");
+  serial.send( port, "gyroReset");
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
