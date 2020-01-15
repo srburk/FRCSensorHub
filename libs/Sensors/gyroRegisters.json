@@ -1,0 +1,27 @@
+{
+    "registers":{
+        "firmware_revision"             : 0,
+        "manufacturer_code"             : 1,
+        "id"                            : 2,
+        "command"                       : 3,
+        "heading_lsb"                   : 4,
+        "heading_msb"                   : 5,
+        "integrated_z_lsb"              : 6,
+        "integrated_z_msb"              : 7,
+        "raw_x_lsb"                     : 8,
+        "raw_x_msb"                     : 9,
+        "raw_y_lsb"                     : 10,
+        "raw_y_msb"                     : 11,
+        "raw_z_lsb"                     : 12,
+        "raw_z_msb"                     : 13,
+        "z_offset_lsb"                  : 14,
+        "z_offset_msb"                  : 15,
+        "z_scaling_lsb"                 : 16,
+        "z_scaling_msb"                 : 17
+    },
+    "commands":{
+        "default_measure"               :0,
+        "null_offset"                   :78,
+        "z_reset"                       :82
+    }
+}
