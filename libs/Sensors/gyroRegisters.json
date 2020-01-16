@@ -20,8 +20,8 @@
         "z_scaling_msb"                 : 17
     },
     "commands":{
-        "default_measure"               :0,
-        "null_offset"                   :78,
-        "z_reset"                       :82
+        "default_measure"               :"0x00",
+        "null_offset"                   :"0x4E",
+        "z_reset"                       :"0x52"
     }
 }
