@@ -15,7 +15,7 @@ var WebSocket = require('ws').Server;
 var cacher = require('./libs/cacher');
 var serial = require('./libs/serial');
 var jsonHandler = require('./libs/json-handler');
-
+var i2cCaller = require('./libs/i2c-caller');
 // CONFIG ==============================
 
 // configuration file
@@ -26,6 +26,9 @@ var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
 // websocket config
 ws = new WebSocket({ port: config.websocket_port });
+
+// sensor config
+i2cCaller.setup();
 
 // EVENTS ==============================
 
@@ -87,6 +90,8 @@ setInterval(() => {
     client.send(JSON.stringify(cacher.read()));
   });
 
+  //i2c testing
+  i2cCaller.gyroRead()
 }, 1000);
 
 // ROUTES ==============================

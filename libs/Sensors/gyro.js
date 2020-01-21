@@ -16,6 +16,8 @@ readBuffer_msb[1] = 0x05;
 const readBuffer_lsb = new Buffer(2);
 readBuffer_lsb[0] = 0x00;
 readBuffer_lsb[1] = 0x04;
+
+
 exports.read = (bus) => {           //Cartesian heading(0-359, unsigned, resets to 0 after 359)
     var angle;
     var lsb = bus.readByteSync(gyroAdd, readBuffer_lsb);
