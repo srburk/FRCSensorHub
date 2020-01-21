@@ -89,6 +89,7 @@ setInterval(() => {
     }
   }
 
+  // check gpio digital snesors
   gpio.check();
 
   // write cache
