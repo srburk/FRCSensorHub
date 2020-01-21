@@ -8,13 +8,13 @@ var app = express();
 
 // classes
 var SerialPort = require('serialport');
-// var Readline = require('@serialport/parser-readline');
 var WebSocket = require('ws').Server;
 
 // libs
 var cacher = require('./libs/cacher');
 var serial = require('./libs/serial');
 var jsonHandler = require('./libs/json-handler');
+var gpio = require('./libs/gpio');
 
 // CONFIG ==============================
 
@@ -26,6 +26,9 @@ var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
 // websocket config
 ws = new WebSocket({ port: config.websocket_port });
+
+// gpio configuration
+gpio.init();
 
 // EVENTS ==============================
 
@@ -75,6 +78,8 @@ setInterval(() => {
       reading: 6.66
     }
   }
+
+  gpio.check();
 
   // write cache
   cacher.write(message);
