@@ -1,13 +1,13 @@
-var i2cBus = require('i2c-bus');
-var gyro = require('./Sensors/gyro');
-var gyroAdd = 0x20;
-var converterAdd = 0x72;
+const i2cBus = require(`i2c-bus`);
+const gyro = require(`./Sensors/gyro`);
+const gyroAdd = 0x20;
+const converterAdd = 0x72;
+const bus = i2cBus.openSync(0);
 
 exports.setup = () => {
-    bus = i2cBus.openSync(0);
-    gyro.calibrate(bus);
-    gyro.reset(bus);
-}
+  gyro.calibrate(bus);
+  gyro.reset(bus);
+};
 exports.gyroRead = () => {
-    console.log(gyro.read(bus));
-}
+  console.log(gyro.read(bus));
+};

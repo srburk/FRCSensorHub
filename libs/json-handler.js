@@ -4,9 +4,9 @@
 
 // build JSON message from cache
 exports.buildMessage = (json) => {
-  var message = '';
-  for (var obj in json) {
-    message += json[obj].reading + ',';
+  let message = ``;
+  for (const obj in json) {
+    message += `${json[obj].reading},`;
   }
-  return message
-}
+  return message;
+};
