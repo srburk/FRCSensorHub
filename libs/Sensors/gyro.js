@@ -1,6 +1,7 @@
 //i2c address is 0x20
 
 var register = require('../Sensors/gyroRegisters.json');
+const gyroAdd = 0x20;
 const calibrateBuffer = new Buffer(2);
 calibrateBuffer[0] = 0x03;
 calibrateBuffer[1] = 0x4E;
