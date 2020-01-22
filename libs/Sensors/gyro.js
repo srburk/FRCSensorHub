@@ -20,7 +20,7 @@ readBuffer_lsb[1] = 0x04;
 
 exports.read = (bus) => { // Cartesian heading(0-359, unsigned, resets to 0 after 359)
   let angle;
-  const lsb = bus.readByteSync(gyroAdd, readBuffer_lsb);
+  let lsb = bus.readByteSync(gyroAdd, readBuffer_lsb);
   let msb = bus.readByteSync(gyroAdd, readBuffer_msb);
   msb <<= 8;
   angle = msb + lsb;

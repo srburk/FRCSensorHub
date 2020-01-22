@@ -25,7 +25,7 @@ const config = require(`./config.json`);
 const port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
 // websocket config
-ws = new WebSocket({ port: config.websocket_port });
+const ws = new WebSocket({ port: config.websocket_port });
 
 // sensor config
 i2cCaller.setup();
