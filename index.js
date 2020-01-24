@@ -28,7 +28,7 @@ const port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 const ws = new WebSocket({ port: config.websocket_port });
 
 // sensor config
-i2cCaller.setup();
+i2cCaller.gyroCalibrate();
 
 // EVENTS ==============================
 

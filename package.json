@@ -4,6 +4,7 @@
   "description": "a Raspberry Pi sensor hub made for FRC",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon --watch .libs/**/*.js --watch ./client/**/*.js --watch *.js index.js",
     "lint": "eslint index.js libs/**/*.js"
   },
   "repository": {
@@ -23,5 +24,8 @@
     "path": "^0.12.7",
     "serialport": "^8.0.6",
     "ws": "^7.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

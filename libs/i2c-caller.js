@@ -3,10 +3,12 @@ const gyro = require(`./Sensors/gyro`);
 const converterAdd = 0x72;
 const bus = i2cBus.openSync(1);
 
-exports.setup = () => {
+exports.gyroCalibrate = () => {
   gyro.calibrate(bus);
-  gyro.reset(bus);
 };
+exports.gyroReset = () => {
+  gyro.reset(bus);
+}
 exports.gyroRead = () => {
   console.log(gyro.read(bus));
 };
