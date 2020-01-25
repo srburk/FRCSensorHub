@@ -98,7 +98,6 @@ setInterval(() => {
 
 // route to client app on GET at root
 app.use(`/`, express.static(`client`));
-
 // START ===============================
 
 // listen on port 3000
