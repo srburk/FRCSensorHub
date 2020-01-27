@@ -30,9 +30,6 @@ const port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 // websocket config
 const ws = new WebSocket({ port: config.websocket_port });
 
-// sensor config
-i2cCaller.gyroCalibrate();
-
 // gpio configuration
 gpio.init();
 
@@ -54,11 +51,11 @@ port.on('readable', () => {
   switch (serial.read(port)) {
     case "gyroCal":
       // Call gyro calibrate method
-      console.log('CaLiBrAtEd GyRo');
+      i2cCaller.gyroCalibrate();
       break;
     case "gyroReset":
       // Call gyro reset method
-      console.log('ReSEt gYrO');
+      i2cCaller.gyroReset();
       break;
     default:
   }
