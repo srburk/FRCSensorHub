@@ -1,31 +1,37 @@
 // index.js
 
 // express
-var express = require('express');
-var app = express();
+const express = require(`express`);
+const app = express();
 
 // IMPORTS ===========================
 
 // classes
-var SerialPort = require('serialport');
-var WebSocket = require('ws').Server;
+
+const SerialPort = require(`serialport`);
+// var Readline = require('@serialport/parser-readline');
+const WebSocket = require(`ws`).Server;
 
 // libs
-var cacher = require('./libs/cacher');
-var serial = require('./libs/serial');
-var jsonHandler = require('./libs/json-handler');
-var gpio = require('./libs/gpio');
+const cacher = require(`./libs/cacher`);
+const serial = require(`./libs/serial`);
+const jsonHandler = require(`./libs/json-handler`);
+const i2cCaller = require(`./libs/i2c-caller`);
+const gpio = require('./libs/gpio');
 
 // CONFIG ==============================
 
 // configuration file
-var config = require('./config.json');
+const config = require(`./config.json`);
 
 // serial port config
-var port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
+const port = new SerialPort(config.serial_path, { baudRate: config.baud_rate });
 
 // websocket config
-ws = new WebSocket({ port: config.websocket_port });
+const ws = new WebSocket({ port: config.websocket_port });
+
+// sensor config
+i2cCaller.gyroCalibrate();
 
 // gpio configuration
 gpio.init();
@@ -33,13 +39,13 @@ gpio.init();
 // EVENTS ==============================
 
 // websocket connection event handler
-ws.on('connection', (socket, req) => {
+ws.on(`connection`, (socket, req) => {
 
   // status handler
-  console.log('Client Connected');
+  console.log(`Client Connected`);
 
-  socket.on('close', () => {
-    console.log('Client disconnected');
+  socket.on(`close`, () => {
+    console.log(`Client disconnected`);
   });
 });
 
@@ -62,32 +68,32 @@ port.on('readable', () => {
 
 setInterval(() => {
   // stand-in updating value for sensor representation
-  var time = new Date().toTimeString();
+  const time = new Date().toTimeString();
 
   // stand-in sensor data to be cached
-  var message = {
+  const message = {
     sensor1: {
-      sensor: 'Light',
+      sensor: `Light`,
       number: time,
       type: time,
       id: time,
-      reading: 4
+      reading: 4,
     },
     sensor2: {
-      sensor: 'Laser',
+      sensor: `Laser`,
       number: time,
       type: time,
       id: time,
-      reading: 6
+      reading: 6,
     },
     sensor3: {
-      sensor: 'Lane',
+      sensor: `Lane`,
       number: time,
       type: time,
       id: time,
-      reading: 6.66
-    }
-  }
+      reading: 6.66,
+    },
+  };
 
   // check gpio digital snesors
   gpio.check();
@@ -96,23 +102,24 @@ setInterval(() => {
   cacher.write(message);
 
   // uart code
-  serial.send( port, jsonHandler.buildMessage(cacher.read()));
+  serial.send(port, jsonHandler.buildMessage(cacher.read()));
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
     client.send(JSON.stringify(cacher.read()));
   });
 
+  // i2c testing
+  i2cCaller.gyroRead();
 }, 1000);
 
 // ROUTES ==============================
 
 // route to client app on GET at root
-app.use('/', express.static('client'));
-
+app.use(`/`, express.static(`client`));
 // START ===============================
 
 // listen on port 3000
 app.listen(process.env.PORT || config.port, () => {
-  console.log('Server listening on port ' + config.port);
+  console.log(`Server listening on port ${config.port}`);
 });
