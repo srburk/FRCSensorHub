@@ -7,6 +7,7 @@ const app = express();
 // IMPORTS ===========================
 
 // classes
+
 const SerialPort = require(`serialport`);
 // var Readline = require('@serialport/parser-readline');
 const WebSocket = require(`ws`).Server;
@@ -16,6 +17,8 @@ const cacher = require(`./libs/cacher`);
 const serial = require(`./libs/serial`);
 const jsonHandler = require(`./libs/json-handler`);
 const i2cCaller = require(`./libs/i2c-caller`);
+const gpio = require('./libs/gpio');
+
 // CONFIG ==============================
 
 // configuration file
@@ -30,6 +33,9 @@ const ws = new WebSocket({ port: config.websocket_port });
 // sensor config
 i2cCaller.gyroCalibrate();
 
+// gpio configuration
+gpio.init();
+
 // EVENTS ==============================
 
 // websocket connection event handler
@@ -43,10 +49,20 @@ ws.on(`connection`, (socket, req) => {
   });
 });
 
-// serial input
-port.on(`readable`, () => {
-  console.log(serial.read(port));
-});
+// serial input read handler
+port.on('readable', () => {
+  switch (serial.read(port)) {
+    case "gyroCal":
+      // Call gyro calibrate method
+      console.log('CaLiBrAtEd GyRo');
+      break;
+    case "gyroReset":
+      // Call gyro reset method
+      console.log('ReSEt gYrO');
+      break;
+    default:
+  }
+})
 
 // PERIODIC ============================
 
@@ -78,6 +94,9 @@ setInterval(() => {
       reading: 6.66,
     },
   };
+
+  // check gpio digital snesors
+  gpio.check();
 
   // write cache
   cacher.write(message);
