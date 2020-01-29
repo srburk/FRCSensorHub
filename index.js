@@ -73,33 +73,6 @@ let createMessage = (json) => {
 // PERIODIC ============================
 
 setInterval(() => {
-  // stand-in updating value for sensor representation
-  const time = new Date().toTimeString();
-
-  // stand-in sensor data to be cached
-  const message = {
-    sensor1: {
-      sensor: `Light`,
-      number: time,
-      type: time,
-      id: time,
-      reading: 4,
-    },
-    sensor2: {
-      sensor: `Laser`,
-      number: time,
-      type: time,
-      id: time,
-      reading: 6,
-    },
-    sensor3: {
-      sensor: `Lane`,
-      number: time,
-      type: time,
-      id: time,
-      reading: 6.66,
-    },
-  };
 
   // check gpio digital snesors
   gpio.check();
