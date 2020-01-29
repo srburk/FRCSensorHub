@@ -1,6 +1,12 @@
+// libs/i2c-caller
+
+// IMPORT ============================
+
 const i2cBus = require(`i2c-bus`);
 const gyro = require(`./Sensors/gyro`);
 const bus = i2cBus.openSync(1);
+
+// EXPORT ==============================
 
 exports.gyroCalibrate = () => {
   gyro.calibrate(bus);

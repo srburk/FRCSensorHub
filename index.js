@@ -78,10 +78,10 @@ setInterval(() => {
   gpio.check();
 
   // write cache
-  cacher.write(message);
+  cacher.write(i2cCaller.buildJSON());
 
   // uart code
-  serial.send(port, createMessage(cacher.read));
+  serial.send(port, createMessage(cacher.read()));
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
