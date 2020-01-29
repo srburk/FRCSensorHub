@@ -26,11 +26,11 @@ exports.buildJSON = () => {
   // stand-in sensor data to be cached
   let message = {
     sensor1: {
-      sensor: `Light`,
-      number: time,
-      type: time,
-      id: time,
-      reading: 4,
+      sensor: `Gyro`,
+      number: gyroRead(),
+      type: gyroRead(),
+      id: gyroRead(),
+      reading: gyroRead(),
     },
     sensor2: {
       sensor: `Laser`,
