@@ -8,15 +8,23 @@ const bus = i2cBus.openSync(1);
 
 // EXPORT ==============================
 
-exports.gyroCalibrate = () => {
+let gyroCalibrate = () => {
   gyro.calibrate(bus);
 };
-exports.gyroReset = () => {
+
+let gyroReset = () => {
   gyro.reset(bus);
-}
-exports.gyroRead = () => {
+};
+
+let gyroRead = () => {
   console.log(gyro.read(bus));
 };
+
+module.exports = {
+  gyroCalibrate,
+  gyroReset,
+  gyroRead
+}
 
 exports.buildJSON = () => {
 
