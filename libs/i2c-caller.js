@@ -20,13 +20,7 @@ let gyroRead = () => {
   console.log(gyro.read(bus));
 };
 
-module.exports = {
-  gyroCalibrate,
-  gyroReset,
-  gyroRead
-}
-
-exports.buildJSON = () => {
+let buildJSON = () => {
 
   // stand-in updating value for sensor representation
   const time = new Date().toTimeString();
@@ -56,4 +50,11 @@ exports.buildJSON = () => {
     },
   };
   return message
+}
+
+module.exports = {
+  gyroCalibrate,
+  gyroReset,
+  gyroRead,
+  buildJSON
 }
