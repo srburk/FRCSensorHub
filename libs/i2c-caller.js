@@ -17,7 +17,9 @@ let gyroReset = () => {
 };
 
 let gyroRead = () => {
-  console.log(gyro.read(bus));
+  let reading = gyro.read(bus)
+  console.log(reading);
+  return reading
 };
 
 let buildJSON = () => {
