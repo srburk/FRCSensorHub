@@ -89,7 +89,8 @@ setInterval(() => {
   });
 
   // i2c testing
-  i2cCaller.gyroRead();
+  // i2cCaller.gyroRead();
+
 }, 1000);
 
 // ROUTES ==============================

@@ -26,15 +26,16 @@ let buildJSON = () => {
 
   // stand-in updating value for sensor representation
   const time = new Date().toTimeString();
+  let gyroValue = gyroRead()
 
   // stand-in sensor data to be cached
   let message = {
     sensor1: {
       sensor: `Gyro`,
-      number: gyroRead(),
-      type: gyroRead(),
-      id: gyroRead(),
-      reading: gyroRead(),
+      number: gyroValue,
+      type: gyroValue,
+      id: gyroValue,
+      reading: gyroValue,
     },
     sensor2: {
       sensor: `Laser`,
