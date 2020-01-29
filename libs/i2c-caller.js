@@ -11,3 +11,7 @@ exports.gyroReset = () => {
 exports.gyroRead = () => {
   console.log(gyro.read(bus));
 };
+
+exports.buildJSON = () => {
+  
+}

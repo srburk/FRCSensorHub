@@ -9,13 +9,11 @@ const app = express();
 // classes
 
 const SerialPort = require(`serialport`);
-// var Readline = require('@serialport/parser-readline');
 const WebSocket = require(`ws`).Server;
 
 // libs
 const cacher = require(`./libs/cacher`);
 const serial = require(`./libs/serial`);
-const jsonHandler = require(`./libs/json-handler`);
 const i2cCaller = require(`./libs/i2c-caller`);
 const gpio = require('./libs/gpio');
 
@@ -61,6 +59,17 @@ port.on('readable', () => {
   }
 })
 
+// FUNCTIONS ===========================
+
+// build message for serial
+let createMessage = (json) => {
+  let serialMessage = ``;
+  for (const obj in json) {
+    serialMessage += `${json[obj].reading},`;
+  }
+  return serialMessage;
+};
+
 // PERIODIC ============================
 
 setInterval(() => {
@@ -99,7 +108,7 @@ setInterval(() => {
   cacher.write(message);
 
   // uart code
-  serial.send(port, jsonHandler.buildMessage(cacher.read()));
+  serial.send(port, createMessage(cacher.read));
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
@@ -114,6 +123,7 @@ setInterval(() => {
 
 // route to client app on GET at root
 app.use(`/`, express.static(`client`));
+
 // START ===============================
 
 // listen on port 3000
