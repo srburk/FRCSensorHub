@@ -88,9 +88,6 @@ setInterval(() => {
     client.send(JSON.stringify(cacher.read()));
   });
 
-  // i2c testing
-  // i2cCaller.gyroRead();
-
 }, 1000);
 
 // ROUTES ==============================
