@@ -8,25 +8,26 @@ const bus = i2cBus.openSync(1);
 
 // EXPORT ==============================
 
-let gyroCalibrate = () => {
-  gyro.calibrate(bus);
-};
-
-let gyroReset = () => {
-  gyro.reset(bus);
-};
-
-let gyroRead = () => {
-  let reading = gyro.read(bus)
-  console.log(reading);
-  return reading
-};
+// let gyroCalibrate = () => {
+//   gyro.calibrate(bus);
+// };
+//
+// let gyroReset = () => {
+//   gyro.reset(bus);
+// };
+//
+// let gyroRead = () => {
+//   let reading = gyro.read(bus)
+//   console.log(reading);
+//   return reading
+// };
 
 let buildJSON = () => {
 
   // stand-in updating value for sensor representation
   const time = new Date().toTimeString();
-  let gyroValue = gyroRead()
+  // let gyroValue = gyroRead()
+  let gyroValue = time;
 
   // stand-in sensor data to be cached
   let message = {
