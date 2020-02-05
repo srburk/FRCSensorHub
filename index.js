@@ -15,7 +15,7 @@ const WebSocket = require(`ws`).Server;
 const cacher = require(`./libs/cacher`);
 const serial = require(`./libs/serial`);
 const i2cCaller = require(`./libs/i2c-caller`);
-const gpio = require('./libs/gpio');
+// const gpio = require('./libs/gpio');
 
 // CONFIG ==============================
 
@@ -49,11 +49,11 @@ port.on('readable', () => {
   switch (serial.read(port)) {
     case "gyroCal":
       // Call gyro calibrate method
-      i2cCaller.gyroCalibrate();
+      // i2cCaller.gyroCalibrate();
       break;
     case "gyroReset":
       // Call gyro reset method
-      i2cCaller.gyroReset();
+      // i2cCaller.gyroReset();
       break;
     default:
   }
@@ -75,7 +75,7 @@ let createMessage = (json) => {
 setInterval(() => {
 
   // check gpio digital snesors
-  gpio.check();
+  // gpio.check();
 
   // write cache
   cacher.write(i2cCaller.buildJSON());
