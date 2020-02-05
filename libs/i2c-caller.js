@@ -57,8 +57,8 @@ let buildJSON = () => {
 }
 
 module.exports = {
-  gyroCalibrate,
-  gyroReset,
-  gyroRead,
+  // gyroCalibrate,
+  // gyroReset,
+  // gyroRead,
   buildJSON
 }
