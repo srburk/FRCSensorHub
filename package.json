@@ -4,7 +4,8 @@
   "description": "a Raspberry Pi sensor hub made for FRC",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon --watch .libs/**/*.js --watch ./client/**/*.js --watch *.js index.js",
+    "lint": "eslint index.js libs/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +18,15 @@
   },
   "homepage": "https://github.com/srburk/FRCSensorHub#readme",
   "dependencies": {
+    "eslint": "^6.8.0",
     "express": "^4.17.1",
+    "i2c-bus": "^5.1.0",
     "path": "^0.12.7",
+    "rpio": "^2.0.0",
     "serialport": "^8.0.6",
     "ws": "^7.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

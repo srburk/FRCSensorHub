@@ -3,17 +3,17 @@
 // EXPORT ==============================
 
 // write to serial port
-exports.send = ( serial, data ) => {
+exports.send = (serial, data) => {
   serial.write(data, (err) => {
     if (err) {
-      return console.log('Error on write: ', err.message);
+      return console.log(`Error on write: `, err.message);
     }
   });
-  console.log('Sending Data');
-}
+  console.log(`Sending Data`);
+};
 
 // read from serial port
-exports.read = ( serial ) => {
-  var data = serial.read()
+exports.read = (serial) => {
+  const data = serial.read();
   return String(data);
-}
+};
