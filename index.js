@@ -9,15 +9,13 @@ const app = express();
 // classes
 
 const SerialPort = require(`serialport`);
-// var Readline = require('@serialport/parser-readline');
 const WebSocket = require(`ws`).Server;
 
 // libs
 const cacher = require(`./libs/cacher`);
 const serial = require(`./libs/serial`);
-const jsonHandler = require(`./libs/json-handler`);
 const i2cCaller = require(`./libs/i2c-caller`);
-const gpio = require('./libs/gpio');
+// const gpio = require('./libs/gpio');
 
 // CONFIG ==============================
 
@@ -51,69 +49,52 @@ port.on('readable', () => {
   switch (serial.read(port)) {
     case "gyroCal":
       // Call gyro calibrate method
-      i2cCaller.gyroCalibrate();
+      // i2cCaller.gyroCalibrate();
       break;
     case "gyroReset":
       // Call gyro reset method
-      i2cCaller.gyroReset();
+      // i2cCaller.gyroReset();
       break;
     default:
   }
 })
 
+// FUNCTIONS ===========================
+
+// build message for serial
+let createMessage = (json) => {
+  let serialMessage = ``;
+  for (const obj in json) {
+    serialMessage += `${json[obj].reading},`;
+  }
+  return serialMessage;
+};
+
 // PERIODIC ============================
 
 setInterval(() => {
-  // stand-in updating value for sensor representation
-  const time = new Date().toTimeString();
-
-  // stand-in sensor data to be cached
-  const message = {
-    sensor1: {
-      sensor: `Light`,
-      number: time,
-      type: time,
-      id: time,
-      reading: 4,
-    },
-    sensor2: {
-      sensor: `Laser`,
-      number: time,
-      type: time,
-      id: time,
-      reading: 6,
-    },
-    sensor3: {
-      sensor: `Lane`,
-      number: time,
-      type: time,
-      id: time,
-      reading: 6.66,
-    },
-  };
 
   // check gpio digital snesors
-  gpio.check();
+  // gpio.check();
 
   // write cache
-  cacher.write(message);
+  cacher.write(i2cCaller.buildJSON());
 
   // uart code
-  serial.send(port, jsonHandler.buildMessage(cacher.read()));
+  serial.send(port, createMessage(cacher.read()));
 
   // websocket broadcasting
   ws.clients.forEach((client) => {
     client.send(JSON.stringify(cacher.read()));
   });
 
-  // i2c testing
-  i2cCaller.gyroRead();
 }, 1000);
 
 // ROUTES ==============================
 
 // route to client app on GET at root
 app.use(`/`, express.static(`client`));
+
 // START ===============================
 
 // listen on port 3000
