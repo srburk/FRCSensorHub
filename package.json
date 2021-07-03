@@ -24,7 +24,7 @@
     "path": "^0.12.7",
     "rpio": "^2.0.0",
     "serialport": "^8.0.6",
-    "ws": "^7.2.1"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
